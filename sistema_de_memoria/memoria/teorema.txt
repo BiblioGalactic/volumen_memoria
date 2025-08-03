@@ -1,0 +1,27 @@
+Computational heuristic based on the Collatz conjecture for dynamic contextual memory control in LLMs
+============================================================================================
+
+Este documento explica de manera concisa cómo se pueden combinar varias conjeturas y teoremas matemáticos para gestionar la memoria de contexto de un modelo de lenguaje local. El objetivo es evitar el desbordamiento de la ventana de contexto sin perder la trazabilidad de la conversación.
+
+1. **Distancia de Levenshtein – métrica semántica**
+
+   * La salida del modelo se divide en fragmentos de tamaño fijo.
+   * Para cada fragmento se estima una medida de similitud (distancia de Levenshtein). Se seleccionan el fragmento **más único** y el fragmento **más común**.
+   * Los resultados se guardan en dos archivos temporales: `unique_fragment.txt` contiene el fragmento menos repetido, mientras que `common_fragment.txt` almacena el más frecuente.
+
+2. **Conjetura de Collatz – dinámica de expansión y contracción**
+
+   * Se calcula una *longitud lógica* sumando una unidad por cada elemento de la sesión: la entrada del usuario, la respuesta del asistente y los fragmentos único y común seleccionados.
+   * Si el total es **par**, la memoria se **expande**: las últimas cuatro interacciones de la conversación se mantienen en el archivo de memoria.
+   * Si el total es **impar**, la memoria se **contrae**: se elimina la mitad del archivo de memoria (la mitad más antigua) y solo se conservan las interacciones más recientes.
+
+3. **Conjetura de Goldbach – estructura de la memoria**
+
+   * Después de aplicar el paso de Collatz, se cuenta el número de líneas en el archivo de memoria.
+   * Se buscan dos números primos cuya suma sea este total. El contenido se divide en dos partes según esta partición prima y se conserva el fragmento asociado al número primo mayor. Esto garantiza que la memoria siempre se divida en dos fragmentos de longitud prima.
+
+4. **Hipótesis de Riemann (versión operacional) – recuperación**
+
+   * Si después de las operaciones anteriores el archivo de memoria se reduce a una sola línea, se utiliza la copia de seguridad previa para recuperar la mitad del mensaje anterior y rellenar el contexto. Conceptualmente se sigue considerando una sola unidad cognitiva, pero se proporciona más contexto para evitar una pérdida súbita de información.
+
+Con estas reglas la memoria del chat se vuelve **temporalmente inteligente**: retiene las partes esenciales de la conversación reciente, olvida de manera controlada lo que ya no contribuye al contexto y, en caso de pérdida extrema, recupera la información mínima necesaria para que la interacción siga siendo coherente.

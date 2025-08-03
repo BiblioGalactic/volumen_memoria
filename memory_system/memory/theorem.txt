@@ -1,0 +1,43 @@
+Computational heuristic based on the Collatz conjecture for dynamic contextual memory control in LLMs
+============================================================================================
+
+This document concisely explains how several mathematical conjectures and theorems can be combined
+to manage the context memory of a local language model. The aim is to avoid context‑window
+overflow without losing conversational traceability.
+
+1. **Levenshtein distance – semantic metric**
+
+   * The model’s output is split into fixed‑size fragments.
+   * For each fragment a similarity measure (Levenshtein distance) is estimated.  The **most
+     unique** fragment and the **most common** fragment are selected.
+   * The results are saved into two temporary files: `unique_fragment.txt` contains the least
+     repeated fragment, while `common_fragment.txt` stores the most frequent one.
+
+2. **Collatz conjecture – expansion and contraction dynamics**
+
+   * A *logical length* is computed by adding one unit for each element of the session:
+     the user input, the assistant response and the selected unique and common fragments.
+   * If the total is **even**, the memory **expands**: the last four conversational interactions are
+     kept in the memory file.
+   * If the total is **odd**, the memory **contracts**: half of the memory file (the oldest half) is
+     removed and only the most recent interactions are preserved.
+
+3. **Goldbach conjecture – memory structure**
+
+   * After applying the Collatz step, the number of lines in the memory file is counted.
+   * Two prime numbers that sum to this total are sought.  The content is split into two parts
+     according to this prime partition, and the fragment associated with the larger prime is
+     preserved.  This ensures that the memory is always divided into two fragments of prime
+     length.
+
+4. **Riemann hypothesis (operational version) – recovery**
+
+   * If after the previous operations the memory file is reduced to a single line, the previous
+     backup is used to recover half of the previous message to refill the context.  Conceptually
+     it is still considered a single cognitive unit, but more context is provided to prevent
+     sudden information loss.
+
+With these rules the chat memory becomes **temporally intelligent**: it retains the essential
+parts of the recent conversation, forgets in a controlled way what no longer contributes context
+and, in case of extreme loss, recovers the minimum necessary information so that the interaction
+remains coherent.

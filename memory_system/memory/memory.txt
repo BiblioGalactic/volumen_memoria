@@ -1,0 +1,3 @@
+# Conversation memory for the Collatz‑based heuristic
+# This file stores recent user and assistant interactions.
+# It will be automatically updated by the memory system script.
