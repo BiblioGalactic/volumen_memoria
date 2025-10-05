@@ -14,3 +14,11 @@ Estos scripts no son productos: son experimentos sobre la cognición humano–m�
 
 ## 🇩🇪 Deutsch  
 Diese Skripte sind keine Produkte – sie sind Experimente zur Mensch–Maschine-Kognition. Macht damit, was ihr wollt, aber denkt daran: Bash ist nicht tot. Unterstützt es weiter, teilt es weiter.  
+
+## 🌍 Català
+
+Aquests scripts no són productes: són experiments sobre la cognició humà–màquina. Feu-ne el que vulgueu, però recordeu: Bash no és mort. Continueu donant-li suport, continueu compartint-lo.
+
+## 🌍 Euskara
+
+Script hauek ez dira produktuak: gizaki–makina kognizioari buruzko esperimentuak baino ez dira. Egin nahi duzunarekin, baina gogoratu: Bash ez dago hil. Jarrai ezazu laguntzen, jarrai ezazu partekatzen.
