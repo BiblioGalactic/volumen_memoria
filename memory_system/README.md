@@ -67,3 +67,7 @@ context‑window overflow while preserving relevant conversation.
   `TOKENS_MAX` and `fragment_size` variables.
 * This system is meant as a **structural and functional prototype**; it is not intended to replace
   professional memory management techniques in production LLMs.
+
+**Eto Demerzel** (Gustavo Silva Da Costa)
+https://etodemerzel.gumroad.com  
+https://github.com/BiblioGalactic

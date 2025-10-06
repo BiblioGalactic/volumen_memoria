@@ -1,0 +1,41 @@
+Heuristika konputazionala Collatz aieruan oinarrituta LLMetan testuinguru-memoriaren kontrol dinamikorako
+==========================================================================================================
+Dokumentu honek labur azaltzen du nola konbinatu daitezkeen hainbat aiera eta teorema matematiko
+hizkuntza-modelo lokal baten testuinguru-memoria kudeatzeko. Helburua testuinguru-leihoaren
+gainezka ekiditea da elkarrizketaren trazabilitatea galdu gabe.
+
+1. **Levenshtein distantzia – neurri semantikoa**
+   * Modeloaren irteera tamaina finkoko zatitan banatzen da.
+   * Zati bakoitzarentzat antzekotasun neurri bat (Levenshtein distantzia) estimatzen da. **Zati
+     bereziena** eta **zati arruntena** hautatzen dira.
+   * Emaitzak bi fitxategi temporaletan gordetzen dira: `unique_fragment.txt`-k gutxien
+     errepikatzen den zatia dauka, eta `common_fragment.txt`-k maiztena.
+
+2. **Collatz aierua – hedapen eta uzkurketa dinamika**
+   * *Luzera logiko* bat kalkulatzen da saioaren elementu bakoitzarentzat unitate bat gehituz:
+     erabiltzailearen sarrera, laguntzailearen erantzuna eta hautatutako zati berezi eta arrunta.
+   * Totala **bikoitia** bada, memoria **zabaltzen** da: azken lau elkarrizketa-elkarrekintzak
+     memoria-fitxategian mantentzen dira.
+   * Totala **bakoitia** bada, memoria **uzkurtzen** da: memoria-fitxategiaren erdia (erdi
+     zaharrena) kentzen da eta elkarrekintza berrienak bakarrik gordetzen dira.
+
+3. **Goldbach aierua – memoria-egitura**
+   * Collatz urratsa aplikatu ondoren, memoria-fitxategiko lerro-kopurua zenbatzen da.
+   * Total horretara batzen duten bi lehen zenbaki bilatzen dira. Edukia bi zatitan banatzen da
+     lehen banaketa honen arabera, eta lehen handiagoarekin lotutako zatia
+     gordetzen da. Honek memoria beti bi lehen-luzerako zatitan banatuta dagoela ziurtatzen du.
+
+4. **Riemann hipotesia (bertsio operazionala) – berreskuratzea**
+   * Aurreko eragiketen ondoren memoria-fitxategia lerro bakar batera murrizten bada, aurreko
+     babeskopia erabiltzen da aurreko mezuaren erdia berreskuratzeko testuingurua betetzeko.
+     Kontzeptualki oraindik unitate kognitibo bakar bat bezala hartzen da, baina testuinguru
+     gehiago ematen da bat-bateko informazio galera saihesteko.
+
+Arau hauekin txat-memoria **denboralki adimentsua** bihurtzen da: azken elkarrizketaren
+atal funtsezko mantentzen ditu, modu kontrolatuan ahazten du jadanik testuinguruari ekarpen
+egiten ez diona eta, galera muturrekoa izanez gero, beharrezko gutxieneko informazioa
+berreskuratzen du elkarrekintzak koherentea izan dadin.
+
+**Eto Demerzel** (Gustavo Silva Da Costa)
+https://etodemerzel.gumroad.com  
+https://github.com/BiblioGalactic

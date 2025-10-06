@@ -1,0 +1,44 @@
+Heurística computacional basada en la conjectura de Collatz per al control dinàmic de la memòria contextual en LLMs
+============================================================================================
+
+Aquest document explica de manera concisa com es poden combinar diverses conjectures i teoremes matemàtics
+per gestionar la memòria contextual d’un model de llenguatge local. L’objectiu és evitar l’overflow de la finestra
+de context sense perdre la traçabilitat de la conversa.
+
+1. **Distància de Levenshtein – mètrica semàntica**
+
+   * La sortida del model es divideix en fragments de mida fixa.
+   * Per a cada fragment s’estima una mesura de similitud (distància de Levenshtein). Es seleccionen el fragment **més únic**
+     i el fragment **més comú**.
+   * Els resultats es guarden en dos fitxers temporals: `unique_fragment.txt` conté el fragment menys repetit, mentre que
+     `common_fragment.txt` emmagatzema el més freqüent.
+
+2. **Conjectura de Collatz – dinàmiques d’expansió i contracció**
+
+   * Es calcula una *longitud lògica* sumant una unitat per a cada element de la sessió: la entrada de l’usuari,
+     la resposta de l’assistent i els fragments únic i comú seleccionats.
+   * Si el total és **parell**, la memòria **s’expandeix**: les quatre últimes interaccions de la conversa
+     es mantenen al fitxer de memòria.
+   * Si el total és **senar**, la memòria **es contrau**: es retira la meitat del fitxer de memòria (la meitat més antiga)
+     i només es conserven les interaccions més recents.
+
+3. **Conjectura de Goldbach – estructura de la memòria**
+
+   * Després d’aplicar el pas de Collatz, es compten les línies del fitxer de memòria.
+   * Es busquen dos nombres primers que sumin aquest total. El contingut es divideix en dues parts segons aquesta
+     partició de nombres primers, i es conserva el fragment associat al nombre primer més gran. Això garanteix
+     que la memòria sempre estigui dividida en dos fragments de longitud primer.
+
+4. **Hipòtesi de Riemann (versió operativa) – recuperació**
+
+   * Si després de les operacions anteriors el fitxer de memòria es redueix a una sola línia, es fa servir la còpia de seguretat
+     anterior per recuperar la meitat del missatge previ i tornar a omplir el context. Conceptualment encara es considera
+     una unitat cognitiva única, però es proporciona més context per evitar pèrdues d’informació sobtades.
+
+Amb aquestes regles, la memòria del xat es torna **intel·ligent temporalment**: reté les parts essencials de la conversa
+recient, oblida de manera controlada allò que ja no contribueix al context i, en cas de pèrdua extrema, recupera
+la informació mínima necessària perquè la interacció segueixi sent coherent.
+
+**Eto Demerzel** (Gustavo Silva Da Costa)
+https://etodemerzel.gumroad.com  
+https://github.com/BiblioGalactic

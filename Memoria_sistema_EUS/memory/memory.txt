@@ -1,0 +1,5 @@
+Collatz-oinarritutako heuristikaren elkarrizketa-memoria
+
+Fitxategi honek erabiltzailearen eta laguntzailearen azken elkarrizketak gordetzen ditu.
+
+Memoria-sistemaren scriptak automatikoki eguneratuko du.

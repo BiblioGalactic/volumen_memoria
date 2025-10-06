@@ -41,3 +41,7 @@ With these rules the chat memory becomes **temporally intelligent**: it retains 
 parts of the recent conversation, forgets in a controlled way what no longer contributes context
 and, in case of extreme loss, recovers the minimum necessary information so that the interaction
 remains coherent.
+
+**Eto Demerzel** (Gustavo Silva Da Costa)
+https://etodemerzel.gumroad.com  
+https://github.com/BiblioGalactic

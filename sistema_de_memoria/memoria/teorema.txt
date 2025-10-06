@@ -25,3 +25,7 @@ Este documento explica de manera concisa cómo se pueden combinar varias conjetu
    * Si después de las operaciones anteriores el archivo de memoria se reduce a una sola línea, se utiliza la copia de seguridad previa para recuperar la mitad del mensaje anterior y rellenar el contexto. Conceptualmente se sigue considerando una sola unidad cognitiva, pero se proporciona más contexto para evitar una pérdida súbita de información.
 
 Con estas reglas la memoria del chat se vuelve **temporalmente inteligente**: retiene las partes esenciales de la conversación reciente, olvida de manera controlada lo que ya no contribuye al contexto y, en caso de pérdida extrema, recupera la información mínima necesaria para que la interacción siga siendo coherente.
+
+**Eto Demerzel** (Gustavo Silva Da Costa)
+https://etodemerzel.gumroad.com  
+https://github.com/BiblioGalactic

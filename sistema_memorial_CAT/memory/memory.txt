@@ -1,0 +1,5 @@
+Memòria de conversació per a l’heurística basada en Collatz
+
+Aquest fitxer desa les interaccions recents de l’usuari i de l’assistent.
+
+Serà actualitzat automàticament pel script del sistema de memòria.

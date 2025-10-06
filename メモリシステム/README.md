@@ -54,3 +54,7 @@
 * `levenshtein_fragment_selector` 関数は単純化した手法を使用しており、真のレーベンシュタイン距離を計算 **しません**。 本番環境で使用する場合は、真の距離に基づく比較器の実装を検討してください。
 * スクリプト内で `TOKENS_MAX` と `FRAGMENT_SIZE` 変数を変更することで、最大トークン数と断片サイズを調整できます。
 * このシステムは **構造的かつ機能的なプロトタイプ** として意図されており、本番用 LLM における専門的なメモリ管理技法に代わるものではありません。
+
+**Eto Demerzel** (Gustavo Silva Da Costa)
+https://etodemerzel.gumroad.com  
+https://github.com/BiblioGalactic

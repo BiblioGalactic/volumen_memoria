@@ -54,3 +54,7 @@
 * `levenshtein_fragment_selector` 函数使用简化的方法，并 **不会** 计算真正的莱文斯坦距离。用于生产时，请考虑实现基于真实距离的比较器。
 * 你可以通过修改脚本中的 `TOKENS_MAX` 和 `FRAGMENT_SIZE` 变量来调整最大令牌限制和片段大小。
 * 此系统旨在作为一个 **结构和功能原型**，并不打算替代生产环境中专业的记忆管理技术。
+
+**Eto Demerzel** (Gustavo Silva Da Costa)
+https://etodemerzel.gumroad.com  
+https://github.com/BiblioGalactic

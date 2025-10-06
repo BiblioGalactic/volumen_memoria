@@ -54,3 +54,7 @@ Este paquete demuestra cómo aplicar una heurística matemática para gestionar 
 * La función `levenshtein_fragment_selector` usa un enfoque simplificado y **no** calcula una distancia de Levenshtein real. Para uso en producción, considera implementar un comparador basado en una distancia real.
 * Puedes ajustar el límite máximo de tokens y el tamaño de los fragmentos dentro del script modificando las variables `TOKENS_MAX` y `FRAGMENT_SIZE`.
 * Este sistema está pensado como un **prototipo estructural y funcional**; no pretende reemplazar técnicas profesionales de gestión de memoria en LLMs de producción.
+
+**Eto Demerzel** (Gustavo Silva Da Costa)
+https://etodemerzel.gumroad.com  
+https://github.com/BiblioGalactic
