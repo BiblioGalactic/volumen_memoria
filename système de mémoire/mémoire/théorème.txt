@@ -1,0 +1,27 @@
+Heuristique computationnelle basée sur la conjecture de Collatz pour le contrôle dynamique de la mémoire contextuelle dans les LLMs
+============================================================================================
+
+Ce document explique de manière concise comment plusieurs conjectures et théorèmes mathématiques peuvent être combinés pour gérer la mémoire de contexte d'un modèle de langage local. L'objectif est d'éviter le débordement de la fenêtre de contexte sans perdre la traçabilité de la conversation.
+
+1. **Distance de Levenshtein – métrique sémantique**
+   * La sortie du modèle est divisée en fragments de taille fixe.
+   * Pour chaque fragment, une mesure de similarité (distance de Levenshtein) est estimée. Le fragment **le plus unique** et le fragment **le plus commun** sont sélectionnés.
+   * Les résultats sont sauvegardés dans deux fichiers temporaires : `unique_fragment.txt` contient le fragment le moins répété, tandis que `common_fragment.txt` stocke le plus fréquent.
+
+2. **Conjecture de Collatz – dynamique d'expansion et de contraction**
+   * Une *longueur logique* est calculée en additionnant une unité pour chaque élément de la session : l'entrée de l'utilisateur, la réponse de l'assistant et les fragments unique et commun sélectionnés.
+   * Si le total est **pair**, la mémoire s'**élargit** : les quatre dernières interactions de la conversation sont maintenues dans le fichier de mémoire.
+   * Si le total est **impair**, la mémoire se **réduit** : la moitié du fichier de mémoire (la moitié la plus ancienne) est supprimée et seules les interactions les plus récentes sont conservées.
+
+3. **Conjecture de Goldbach – structure de la mémoire**
+   * Après avoir appliqué l'étape de Collatz, le nombre de lignes dans le fichier de mémoire est compté.
+   * Deux nombres premiers dont la somme est ce total sont recherchés. Le contenu est divisé en deux parties selon cette partition première et le fragment associé au nombre premier le plus grand est conservé. Cela garantit que la mémoire est toujours divisée en deux fragments de longueur première.
+
+4. **Hypothèse de Riemann (version opérationnelle) – récupération**
+   * Si après les opérations précédentes le fichier de mémoire est réduit à une seule ligne, la copie de sauvegarde précédente est utilisée pour récupérer la moitié du message antérieur et remplir le contexte. Conceptuellement, une seule unité cognitive est toujours considérée, mais davantage de contexte est fourni pour éviter une perte soudaine d'information.
+
+Avec ces règles, la mémoire du chat devient **temporellement intelligente** : elle retient les parties essentielles de la conversation récente, oublie de manière contrôlée ce qui ne contribue plus au contexte et, en cas de perte extrême, récupère l'information minimale nécessaire pour que l'interaction reste cohérente.
+
+**Eto Demerzel** (Gustavo Silva Da Costa)  
+https://etodemerzel.gumroad.com  
+https://github.com/BiblioGalactic
