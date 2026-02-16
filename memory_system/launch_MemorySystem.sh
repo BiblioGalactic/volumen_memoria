@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # === 🚀 AI Launcher with Dynamic Memory Control ===
 # This script applies a mathematical heuristic to manage the context memory of a local LLM.
 # It is based on the Levenshtein distance, the Collatz and Goldbach conjectures and an
@@ -13,17 +13,52 @@
 set -euo pipefail
 trap cleanup EXIT
 
+# Cargar librería común si existe
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+EXPUESTO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+[[ -f "$EXPUESTO_ROOT/lib/bash-common.sh" ]] && source "$EXPUESTO_ROOT/lib/bash-common.sh"
+
+show_help() {
+    cat <<'HELP'
+Uso: ./launch_MemorySystem.sh [--help]
+
+Descripción:
+  Lanzador de IA con control dinámico de memoria. Aplica heurísticas
+  matemáticas (Levenshtein, Collatz, Goldbach, Riemann) para gestionar
+  la memoria de contexto del LLM local.
+
+Variables de entorno:
+  LLAMA_CLI           Ruta al binario llama-cli
+  MODELO              Ruta al modelo GGUF
+  LLAMA_CTX_SIZE      Tamaño de contexto (default: config.env)
+  LLAMA_THREADS       Hilos de CPU (default: config.env)
+  LOG_MAX_LINES       Máximo líneas de log (default: 10000)
+
+Retorno:
+  0  Éxito
+  1  Error de validación o ejecución
+HELP
+    exit 0
+}
+[[ "${1:-}" == "--help" || "${1:-}" == "-h" ]] && show_help
+
 # -----------------------------------------------------------------------------
 # 🛠 Configuration
 # Adjust these paths if your installation differs.  The model must be in
 # GGUF format and compatible with llama-cli.
-LLAMA_CLI="$HOME/modelo/llama.cpp/build/bin/llama-cli"
-MODEL_FILE="$HOME/modelo/modelos_grandes/M6/mistral-7b-instruct-v0.1.Q6_K.gguf"
+LLAMA_CLI="${LLAMA_CLI:-$HOME/modelo/llama.cpp/build/bin/llama-cli}"
+MODEL_FILE="${MODELO:-$HOME/modelo/modelos_grandes/M6/mistral-7b-instruct-v0.1.Q6_K.gguf}"
 
 # Working files
 PROMPT_FILE="memory/prompt.txt"
 MEMORY_FILE="memory/memory.txt"
 LOG_FILE="logs/memory_system.log"
+
+# Rotar log si excede MAX_LINES
+if type -t rotate_log &>/dev/null; then
+    mkdir -p "$(dirname "$LOG_FILE")"
+    rotate_log "$LOG_FILE"
+fi
 BACKUP_FILE="${MEMORY_FILE}.backup"
 
 # Heuristic parameters
