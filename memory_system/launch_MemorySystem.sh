@@ -13,9 +13,10 @@
 set -euo pipefail
 trap cleanup EXIT
 
-# Cargar librería común si existe
+# Cargar librería común si existe (Expuesto/ es el repo de infraestructura)
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-EXPUESTO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+WORKSPACE_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+EXPUESTO_ROOT="${WORKSPACE_ROOT}/Expuesto"
 [[ -f "$EXPUESTO_ROOT/lib/bash-common.sh" ]] && source "$EXPUESTO_ROOT/lib/bash-common.sh"
 
 show_help() {
