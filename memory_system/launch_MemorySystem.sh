@@ -228,7 +228,41 @@ goldbach_split() {
     return
   fi
 
+  # Safety limits for large memories.
+  # Set to 0 to disable a limit explicitly.
+  local max_iterations
+  max_iterations=${GOLDBACH_MAX_ITERATIONS:-200000}
+  if ! [[ "$max_iterations" =~ ^[0-9]+$ ]]; then
+    max_iterations=200000
+  fi
+
+  local max_ms
+  max_ms=${GOLDBACH_MAX_MS:-1500}
+  if ! [[ "$max_ms" =~ ^[0-9]+$ ]]; then
+    max_ms=1500
+  fi
+
+  local started_ms now_ms elapsed_ms iterations
+  started_ms=$(date +%s%3N 2>/dev/null || echo 0)
+  iterations=0
+
   for (( i=2; i<total_lines; i++ )); do
+    iterations=$((iterations + 1))
+
+    if (( max_iterations > 0 && iterations > max_iterations )); then
+      log_info "Goldbach step skipped: reached iteration limit ($max_iterations)"
+      return
+    fi
+
+    if (( max_ms > 0 && started_ms > 0 )); then
+      now_ms=$(date +%s%3N 2>/dev/null || echo "$started_ms")
+      elapsed_ms=$((now_ms - started_ms))
+      if (( elapsed_ms > max_ms )); then
+        log_info "Goldbach step skipped: reached time limit (${max_ms}ms)"
+        return
+      fi
+    fi
+
     local j=$(( total_lines - i ))
     if is_prime "$i" && is_prime "$j"; then
       if (( j > i )); then
