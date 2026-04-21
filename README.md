@@ -1,28 +1,28 @@
 # volumen_memoria
-Scripts para ejecutar IA local con lógica de memoria personalizada.
 
-# Volumen Memoria – IA con memoria estructurada
+Este repo es mi intento de forzar memoria a largo plazo sin meter una base vectorial por debajo. Queria algo mas tosco pero totalmente visible: prompts, archivos y reglas que se pudieran abrir con un editor normal.
 
-Este repositorio contiene prototipos de scripts para ejecutar modelos IA locales (llama.cpp) con lógica de memoria propia, sin usar RAG ni bases vectoriales externas.
+## Que mantiene
 
-Los perfiles incluidos aplican principios matemáticos (Collatz, Levenshtein, Riemann...) para gestionar qué se recuerda, qué se olvida y cómo se estructura el conocimiento.
+Hay 7 carpetas idiomaticas que repiten la misma idea base:
 
----
+- un archivo de memoria,
+- un prompt de control,
+- una pieza teorica o heuristica,
+- un lanzador.
 
-## 🎯 Objetivo
+## Por que no use RAG aqui
 
-Explorar formas de simular memoria y coherencia a largo plazo **solo desde el prompt**, con ayuda de Bash y modelos tipo GGUF.
+Porque el objetivo no era ganar recall bruto. El objetivo era entender que pasa cuando la "memoria" depende de decisiones escritas, no de un indice externo. Eso me deja ver mejor el fallo, aunque el sistema sea menos robusto.
 
----
+## Lo que si ofrece
 
-## 🧪 Estado
+- memoria inspectable a mano,
+- heuristicas visibles,
+- variantes por idioma sin cambiar la idea central.
 
-🔧 En desarrollo. El código será publicado en fases.  
-🧠 En paralelo con mis productos en [etodemerzel.gumroad.com](https://etodemerzel.gumroad.com)
+## Lo que no voy a maquillar
 
----
-
-## 📜 Licencia
-
-Código experimental. Uso libre no comercial. Cita si reutilizas.
-Creado por Gustavo Silva Da Costa – alias **Eto Demerzel**.
+- la coherencia puede degradarse,
+- el recuerdo es heuristico y no garantizado,
+- esto sirve para experimentar con memoria en prompt, no para prometer consistencia de produccion.
